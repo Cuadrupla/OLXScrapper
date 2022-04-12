@@ -6,7 +6,7 @@ const initialValues = {
     search: '',
     data: [],
     filter: {},
-    curentPage: 1,
+    curentElement: 1,
     pages: 50
 };
 export const Context = createContext(initialValues);
@@ -16,8 +16,8 @@ const ContextProvider = props => {
     const [isSearch, setIsSearch] = useState(false);
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState({})
-    const [curentPage, setCurentPage] = useState(1);
-    const [pages, setPages] = useState(50);
+    const [curentElement, setCurentElement] = useState(1);
+    const [length, setLength] = useState(0);
 
     const checkValue = () => {
         if (search.trim() === "") {
@@ -50,10 +50,6 @@ const ContextProvider = props => {
         console.log("DAAAAA");
     }
 
-    const setPage = value => {
-        console.log(value);
-        setCurentPage(value);
-    }
 
     return (
         <Context.Provider
@@ -67,9 +63,9 @@ const ContextProvider = props => {
                 clearFilter,
                 filter,
                 setFilter,
-                curentPage,
-                setPage,
-                pages
+                curentElement,
+                length,
+                setLength
             }}>
             {props.children}
         </Context.Provider>

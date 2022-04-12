@@ -15,32 +15,8 @@ export const Anunturi = () => {
     //     return true;
     // })
 
-    function displayPagination() {
-        let start = ctx.curentPage - 2 < 1 ? 1 : ctx.curentPage - 2;
-        let finish = ctx.curentPage + 2 > ctx.pages ? ctx.pages : ctx.curentPage + 2;
+    ctx.setLength(mockData.length);
 
-        const pagination = document.getElementById("pages");
-        while (pagination.firstChild) {
-            pagination.removeChild(pagination.lastChild);
-        }
-        for (let i = start; i <= finish; ++i) {
-            let listItem = document.createElement("li");
-            listItem.classList.add("pagination-link");
-            if (i === ctx.curentPage) {
-                listItem.classList.add("has-text-black-bis");
-                listItem.classList.add("has-background-grey-lighter");
-            }
-            listItem.classList.add("is-clickable");
-            listItem.addEventListener("click", () => ctx.setPage(i))
-            listItem.textContent = String(i);
-            pagination.append(listItem);
-
-        }
-    }
-
-    useEffect(() => {
-        displayPagination();
-    }, [ctx.curentPage])
     return (
         <div className="container is-widescreen">
             <div className="rows">
@@ -60,9 +36,8 @@ export const Anunturi = () => {
 
             </div>
             <nav className="pagination is-centered mt-6 mx-3" role="navigation" aria-label="pagination">
-                <a className="pagination-previous" onClick={() => ctx.setPage(ctx.curentPage - 1)}>Previous</a>
-                <a className="pagination-next" onClick={() => ctx.setPage(ctx.curentPage + 1)}>Next page</a>
-                <ul id="pages" className="pagination-list"/>
+                <a className="pagination-previous" onClick={() => ctx.setPage(ctx.curentElement - 1)}>Previous</a>
+                <a className="pagination-next" onClick={() => ctx.setPage(ctx.curentElement + 1)}>Next</a>
             </nav>
         </div>
     );

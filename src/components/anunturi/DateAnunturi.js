@@ -37,7 +37,7 @@ export const mockData = [
     pret: "260",
   },
   {
-    id: 3,
+    id: 4,
     titlu: "iconita cu sf gheorghe",
     descriere:
       "iconita adusa de pe muntele athos sfintita de insusi domnul nostru iisus hristos",
@@ -50,7 +50,7 @@ export const mockData = [
     pret: "1000",
   },
   {
-    id: 4,
+    id: 5,
     titlu: "Jante nfs",
     descriere:
       "Jante dupa care s-au inspirat astia de a facut need for speed si au pus pe gtr ca sa se dea ei smecheri",

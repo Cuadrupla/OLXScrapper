@@ -14,7 +14,7 @@ const Filtre = () => {
     return (
         <aside className="menu">
             <div className="box">
-                <span className="titlu">Piese auto (80000 -> numar rezultate)</span>
+                <span className="titlu">Piese auto - {ctx.length}</span>
                 <div className={style.tags}>
                     {Object.keys(ctx.filter).map(filtru => ctx.filter[filtru] && (
                             <article className={"message " + style.tag}>
