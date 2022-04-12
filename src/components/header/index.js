@@ -1,4 +1,3 @@
-import { Link } from "preact-router/match";
 import style from "./style.css";
 import { useContext, useEffect } from "preact/hooks";
 import { Context } from "../../context/context";
@@ -6,11 +5,14 @@ import React from "react";
 
 const Header = () => {
   const ctx = useContext(Context);
-
   useEffect(() => {
-    console.log(ctx.search);
+    if (ctx.search != "") {
+      const newArr = ctx.data.filter((item) =>
+        item.titlu.toLowerCase().includes(ctx.search.toLowerCase())
+      );
+      ctx.setData(newArr);
+    }
   }, [ctx.search]);
-
   return (
     <header className={`columns ${style.header}`}>
       <h1
@@ -26,7 +28,6 @@ const Header = () => {
             type="text"
             placeholder="Search"
             value={ctx.search}
-            onBlur={ctx.checkValue}
             onChange={ctx.handleChange}
           />
           <span className="icon is-small is-left">

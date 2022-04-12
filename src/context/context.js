@@ -1,5 +1,6 @@
 import { useState } from "preact/hooks";
 import { createContext } from "preact";
+import { mockData } from "../components/anunturi/DateAnunturi";
 
 const initialValues = {
   isSearch: false,
@@ -13,19 +14,11 @@ export const Context = createContext(initialValues);
 
 const ContextProvider = (props) => {
   //States
-  const [isSearch, setIsSearch] = useState(false);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState({});
   const [curentElement, setCurentElement] = useState(1);
   const [length, setLength] = useState(0);
-
-  const checkValue = () => {
-    if (search.trim() === "") {
-      setIsSearch(false);
-    } else {
-      setIsSearch(true);
-    }
-  };
+  const [data, setData] = useState(mockData);
 
   const debounce = (func, timeout = 1500) => {
     let timer;
@@ -53,10 +46,7 @@ const ContextProvider = (props) => {
   return (
     <Context.Provider
       value={{
-        isSearch,
-        setIsSearch,
         search,
-        checkValue,
         handleChange,
         clearInput,
         clearFilter,
@@ -66,6 +56,8 @@ const ContextProvider = (props) => {
         setCurentElement,
         length,
         setLength,
+        data,
+        setData,
       }}
     >
       {props.children}
