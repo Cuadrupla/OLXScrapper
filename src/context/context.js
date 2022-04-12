@@ -1,11 +1,13 @@
-import {useEffect, useState} from 'preact/hooks';
+import {useState} from 'preact/hooks';
 import {createContext} from "preact";
 
 const initialValues = {
     isSearch: false,
     search: '',
     data: [],
-    filter: {}
+    filter: {},
+    curentPage: 1,
+    pages: 50
 };
 export const Context = createContext(initialValues);
 
@@ -14,6 +16,8 @@ const ContextProvider = props => {
     const [isSearch, setIsSearch] = useState(false);
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState({})
+    const [curentPage, setCurentPage] = useState(1);
+    const [pages, setPages] = useState(50);
 
     const checkValue = () => {
         if (search.trim() === "") {
@@ -41,13 +45,32 @@ const ContextProvider = props => {
         setSearch("");
     }
 
-    const clearFilter = () => {
+    const clearFilter = (filtru) => {
+        setFilter({...filter, [filtru]: null});
         console.log("DAAAAA");
+    }
+
+    const setPage = value => {
+        console.log(value);
+        setCurentPage(value);
     }
 
     return (
         <Context.Provider
-            value={{isSearch, setIsSearch, search, checkValue, handleChange, clearInput, clearFilter, filter, setFilter}}>
+            value={{
+                isSearch,
+                setIsSearch,
+                search,
+                checkValue,
+                handleChange,
+                clearInput,
+                clearFilter,
+                filter,
+                setFilter,
+                curentPage,
+                setPage,
+                pages
+            }}>
             {props.children}
         </Context.Provider>
     )

@@ -1,0 +1,29 @@
+/*.dropdownIcon {*/
+/*    font-weight: bold;*/
+/*}*/
+
+/*.dropdownIcon:focus, .dropdownIcon:active {*/
+/*    transform: rotateZ(90deg) perspective(100px) scale(1.2);*/
+/*}*/
+
+.tags {
+    display: flex;
+    align-items: flex-start;
+    justify-items: center;
+    flex-wrap: wrap;
+}
+
+.tag {
+    margin: 5px 2px 0px 2px !important;
+    height: auto;
+}
+
+.content {
+    font-size: 12px;
+    border-radius: 16px;
+
+}
+
+.content > p {
+    margin-right: 2px;
+}
