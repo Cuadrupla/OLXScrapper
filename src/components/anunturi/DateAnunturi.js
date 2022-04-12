@@ -3,7 +3,7 @@ export const mockData = [
     id: 1,
     titlu: "Jante 100% originale",
     descriere:
-      "Jante aduse de la o bunicuta din germania smr fata mea in puscarie daca mint",
+      "Jante aduse de la o bunicuta din germania smr fata mea in puscarie daca mint ",
     tip: "jante",
     marca: "bemveu",
     negociabil: "nu",
@@ -35,5 +35,31 @@ export const mockData = [
     data_postare: "in ultima saptamana",
     stare: "bulit rau",
     pret: "260",
+  },
+  {
+    id: 3,
+    titlu: "iconita cu sf gheorghe",
+    descriere:
+      "iconita adusa de pe muntele athos sfintita de insusi domnul nostru iisus hristos",
+    tip: "accesorii",
+    marca: "dacia",
+    negociabil: "da",
+    locatie: "Galati",
+    data_postare: "azi",
+    stare: "nou",
+    pret: "1000",
+  },
+  {
+    id: 4,
+    titlu: "Jante nfs",
+    descriere:
+      "Jante dupa care s-au inspirat astia de a facut need for speed si au pus pe gtr ca sa se dea ei smecheri",
+    tip: "jante",
+    marca: "nissan",
+    negociabil: "nu",
+    locatie: "toyko",
+    data_postare: "in ultima luna",
+    stare: "second hand",
+    pret: "9999,99",
   },
 ];

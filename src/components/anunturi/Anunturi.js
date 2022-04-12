@@ -43,26 +43,24 @@ export const Anunturi = () => {
     }, [ctx.curentPage])
     return (
         <div className="container is-widescreen">
-            <div className="columns">
+            <div className="rows">
                 {mockData.map((item) => {
                     return (
                         <Anunt
                             key={item.id}
                             title={item.titlu}
-                            type={item.tip}
-                            marca={item.marca}
-                            negociabil={item.negociabil}
                             locatie={item.locatie}
                             data_postare={item.data_postare}
-                            stare={item.stare}
                             pret={item.pret}
+                            descriere={item.descriere}
+                            negociabil={item.negociabil}
                         />
                     );
                 })}
 
             </div>
             <nav className="pagination is-centered mt-6 mx-3" role="navigation" aria-label="pagination">
-                <a className="pagination-previous" onClick={(e) => ctx.setPage(ctx.curentPage - 1)}>Previous</a>
+                <a className="pagination-previous" onClick={() => ctx.setPage(ctx.curentPage - 1)}>Previous</a>
                 <a className="pagination-next" onClick={() => ctx.setPage(ctx.curentPage + 1)}>Next page</a>
                 <ul id="pages" className="pagination-list"/>
             </nav>
