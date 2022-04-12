@@ -1,10 +1,13 @@
-import { h } from "preact";
 import style from "./style.css";
 import Filtre from "../../components/filtre/Filtre";
+
 const Home = () => (
-  <div class={style.home}>
-    <Filtre />
-  </div>
+    <div className={style.home}>
+        <Filtre/>
+        <div>
+            Anunturi
+        </div>
+    </div>
 );
 
 export default Home;

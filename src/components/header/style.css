@@ -38,9 +38,8 @@ body {
 	will-change: background-color;
 }
 
-.header nav a:hover,
-.header nav a:active {
-	background: rgba(0,0,0,0.2);
+.header nav a {
+	height: 50px;
 }
 
 .header nav a.active {

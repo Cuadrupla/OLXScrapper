@@ -4,7 +4,8 @@ import {createContext} from "preact";
 const initialValues = {
     isSearch: false,
     search: '',
-    data: []
+    data: [],
+    filter: {}
 };
 export const Context = createContext(initialValues);
 
@@ -12,7 +13,7 @@ const ContextProvider = props => {
     //States
     const [isSearch, setIsSearch] = useState(false);
     const [search, setSearch] = useState("");
-    const [filteredData, setFilteredData] = useState([]);
+    const [filter, setFilter] = useState({})
 
     const checkValue = () => {
         if (search.trim() === "") {
@@ -27,7 +28,7 @@ const ContextProvider = props => {
         return (...args) => {
             clearTimeout(timer);
             timer = setTimeout(() => {
-                func.apply(this,args);
+                func.apply(this, args);
             }, timeout)
         }
     }
@@ -40,12 +41,13 @@ const ContextProvider = props => {
         setSearch("");
     }
 
-    useEffect(() => {
-        console.log(search);
-    }, [search]);
+    const clearFilter = () => {
+        console.log("DAAAAA");
+    }
 
     return (
-        <Context.Provider value={{isSearch, setIsSearch, search, checkValue, handleChange, clearInput}}>
+        <Context.Provider
+            value={{isSearch, setIsSearch, search, checkValue, handleChange, clearInput, clearFilter, filter, setFilter}}>
             {props.children}
         </Context.Provider>
     )

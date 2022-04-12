@@ -1,4 +1,5 @@
-import { useState } from "preact/hooks";
+import {useContext, useState} from "preact/hooks";
+import {Context} from "../../context/context";
 
 export const Filtru = (props) => {
   const [isClicked, setIsClicked] = useState(false);
@@ -23,7 +24,7 @@ export const Filtru = (props) => {
                   <div>
                     <button
                       class="button is-info is-inverted dropdown-item"
-                      onClick={() => props.clickHandler(option)}
+                      onClick={() => props.clickHandler(props.title, option)}
                     >
                       {option}
                     </button>
