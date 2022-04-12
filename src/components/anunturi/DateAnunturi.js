@@ -26,18 +26,6 @@ export const mockData = [
   },
   {
     id: 3,
-    titlu: "parbriz de tanc",
-    descriere: "Lam adus din ucraina de pe un tanc",
-    tip: "parbriz",
-    marca: "dacia",
-    negociabil: "da",
-    locatie: "tecuci",
-    data_postare: "in ultima saptamana",
-    stare: "bulit rau",
-    pret: "260",
-  },
-  {
-    id: 4,
     titlu: "iconita cu sf gheorghe",
     descriere:
       "iconita adusa de pe muntele athos sfintita de insusi domnul nostru iisus hristos",
@@ -50,7 +38,7 @@ export const mockData = [
     pret: "1000",
   },
   {
-    id: 5,
+    id: 4,
     titlu: "Jante nfs",
     descriere:
       "Jante dupa care s-au inspirat astia de a facut need for speed si au pus pe gtr ca sa se dea ei smecheri",
