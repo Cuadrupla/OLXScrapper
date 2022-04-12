@@ -2,6 +2,7 @@ import style from "./style.css";
 import { useContext, useEffect } from "preact/hooks";
 import { Context } from "../../context/context";
 import React from "react";
+import {mockData} from "../anunturi/DateAnunturi";
 
 const Header = () => {
   const ctx = useContext(Context);
@@ -11,6 +12,8 @@ const Header = () => {
         item.titlu.toLowerCase().includes(ctx.search.toLowerCase())
       );
       ctx.setData(newArr);
+    } else {
+      ctx.setData(mockData);
     }
   }, [ctx.search]);
   return (

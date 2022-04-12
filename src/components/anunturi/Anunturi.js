@@ -1,24 +1,14 @@
-import { mockData } from "./DateAnunturi";
 import { Anunt } from "./Anunt";
-import { useContext, useEffect } from "preact/hooks";
+import { useContext } from "preact/hooks";
 import { Context } from "../../context/context";
 import style from "./style.css";
 export const Anunturi = () => {
   const ctx = useContext(Context);
 
-  // const filteredData = mockData.filter(element => {
-  //     for (let key in ctx.filter) {
-  //         if (element[key] === undefined || element[key] !== ctx.filter[key])
-  //             return false;
-  //     }
-  //     return true;
-  // })
-
-  ctx.setLength(mockData.length);
-  const chosenEl = mockData.filter((item) => item.id == ctx.curentElement)[0];
+  ctx.setLength(ctx.data.length);
+  const chosenEl = ctx.data.filter((item) => item.id == ctx.curentElement)[0];
   return (
     <div className="container is-widescreen">
-      <div className="rows">
         {chosenEl && (
           <Anunt
             key={chosenEl.id}
@@ -28,9 +18,12 @@ export const Anunturi = () => {
             pret={chosenEl.pret}
             descriere={chosenEl.descriere}
             negociabil={chosenEl.negociabil}
+            marca={chosenEl.marca}
+            stare={chosenEl.stare}
+            tip={chosenEl.tip}
+            an={chosenEl.an}
           />
         )}
-      </div>
       <nav
         className={`pagination ${
           ctx.curentElement == 1 ? style.nextBtn : "is-centered"
