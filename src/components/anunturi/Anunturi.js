@@ -9,21 +9,21 @@ export const Anunturi = () => {
   const chosenEl = ctx.data.filter((item) => item.id === ctx.curentElement)[0];
   return (
     <div className="container is-widescreen">
-        {chosenEl && (
-          <Anunt
-            key={chosenEl.id}
-            title={chosenEl.titlu}
-            locatie={chosenEl.locatie}
-            data_postare={chosenEl.data_postare}
-            pret={chosenEl.pret}
-            descriere={chosenEl.descriere}
-            negociabil={chosenEl.negociabil}
-            marca={chosenEl.marca}
-            stare={chosenEl.stare}
-            tip={chosenEl.tip}
-            an={chosenEl.an}
-          />
-        )}
+      {chosenEl && !ctx.isLoading && (
+        <Anunt
+          key={chosenEl.id}
+          title={chosenEl.titlu}
+          locatie={chosenEl.locatie}
+          data_postare={chosenEl.data_postare}
+          pret={chosenEl.pret}
+          descriere={chosenEl.descriere}
+          negociabil={chosenEl.negociabil}
+          marca={chosenEl.marca}
+          stare={chosenEl.stare}
+          tip={chosenEl.tip}
+          an={chosenEl.an}
+        />
+      )}
       <nav
         className={`pagination ${
           ctx.curentElement === 1 ? style.nextBtn : "is-centered"

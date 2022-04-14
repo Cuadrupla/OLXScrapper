@@ -19,18 +19,26 @@ const ContextProvider = (props) => {
   const [curentElement, setCurentElement] = useState(1);
   const [length, setLength] = useState(0);
   const [data, setData] = useState(mockData);
+  const [isLoading, setIsLoading] = useState(false);
 
   const debounce = (func, timeout = 1500) => {
     let timer;
+
     return (...args) => {
       clearTimeout(timer);
       timer = setTimeout(() => {
         func.apply(this, args);
+          console.log("finished loading");
+          setIsLoading(false);
       }, timeout);
+
     };
   };
 
   const handleChange = debounce((e) => {
+
+      setIsLoading(true);
+      console.log("loading...");
     setSearch(e.target.value);
   });
 
@@ -58,6 +66,7 @@ const ContextProvider = (props) => {
         setLength,
         data,
         setData,
+        isLoading,
       }}
     >
       {props.children}

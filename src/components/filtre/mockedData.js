@@ -52,7 +52,7 @@ export const mockedData = [
     },
     {
         id: 10,
-        title: "Tiptul carburantului",
+        title: "Tipul carburantului",
         options: ["benzina", "diesel"],
     },
 ];
