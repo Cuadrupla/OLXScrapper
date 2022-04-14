@@ -6,7 +6,7 @@ export const Anunturi = () => {
   const ctx = useContext(Context);
 
   ctx.setLength(ctx.data.length);
-  const chosenEl = ctx.data.filter((item) => item.id == ctx.curentElement)[0];
+  const chosenEl = ctx.data.filter((item) => item.id === ctx.curentElement)[0];
   return (
     <div className="container is-widescreen">
         {chosenEl && (
@@ -26,7 +26,7 @@ export const Anunturi = () => {
         )}
       <nav
         className={`pagination ${
-          ctx.curentElement == 1 ? style.nextBtn : "is-centered"
+          ctx.curentElement === 1 ? style.nextBtn : "is-centered"
         } mt-6 mx-3`}
         role="navigation"
         aria-label="pagination"
