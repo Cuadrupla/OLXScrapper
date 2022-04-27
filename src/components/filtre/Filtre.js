@@ -1,6 +1,6 @@
 import {Filtru} from "./Filtru";
 import {mockedData} from './mockedData';
-import {useContext} from "preact/hooks";
+import {useContext, useEffect} from "preact/hooks";
 import {Context} from "../../context/context";
 import style from './styles.css';
 
@@ -10,7 +10,18 @@ const Filtre = () => {
         setIsClicked(false);
         ctx.setFilter({...ctx.filter, [filterName]: value});
     };
-
+    useEffect(() => {
+        if(ctx.data.length) {
+            const locatii = ctx.data.map(el => el.locatie);
+            if (mockedData.length != 10) {
+                mockedData.push({
+                    id: 10,
+                    title: "Locatie",
+                    options: [...new Set(locatii)]
+                })
+            }
+        }
+    }, [ctx.data])
     return (
         <aside className="menu">
             <div className="box">

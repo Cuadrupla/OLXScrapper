@@ -5,30 +5,19 @@ import React from "react";
 
 const Header = () => {
   const ctx = useContext(Context);
-  console.log(ctx.data);
   useEffect(() => {
-    let index = 0;
-
     if (ctx.search != "") {
-      const newArr = ctx.data.filter((item) => {
-        if (item.titlu.toLowerCase().includes(ctx.search.toLowerCase())) {
-          index++;
-          item.id = index;
-          return { ...item };
-        }
-      });
-      ctx.setCurentElement(1);
+      const newArr = ctx.data.filter((item) => item.titlu.toLowerCase().includes(ctx.search.toLowerCase()));
       ctx.setData(newArr);
     } else {
-      ctx.setCurentElement(1);
-      index = 0;
-      const newArr = ctx.data.map((item, index) => {
-        index++;
-        item.id = index;
-        return { ...item };
-      });
-      ctx.setData(newArr);
-      console.log(newArr);
+      fetch("http://localhost:3000/announcements")
+          .then((res) => res.json())
+          .then((data) => {
+            ctx.setData(data.data);
+          })
+          .catch((res) => {
+            console.log(res);
+          });
     }
   }, [ctx.search]);
   return (

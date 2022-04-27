@@ -1,17 +1,21 @@
 import { Anunt } from "./Anunt";
-import { useContext } from "preact/hooks";
+import { useContext, useEffect } from "preact/hooks";
 import { Context } from "../../context/context";
 import style from "./style.css";
 export const Anunturi = () => {
   const ctx = useContext(Context);
+  useEffect(() => {
+    const data = ctx.verifyFilter(ctx.data);
+    ctx.setData(data);
+  }, [ctx.filter])
 
   ctx.setLength(ctx.data.length);
-  const chosenEl = ctx.data.filter((item) => item.id === ctx.curentElement)[0];
+
   return (
     <div className="container is-widescreen">
-      {chosenEl && !ctx.isLoading && (
+      {ctx.data.map((chosenEl) => (
         <Anunt
-          key={chosenEl.id}
+          key={chosenEl._id}
           title={chosenEl.titlu}
           locatie={chosenEl.locatie}
           data_postare={chosenEl.data_postare}
@@ -22,32 +26,9 @@ export const Anunturi = () => {
           stare={chosenEl.stare}
           tip={chosenEl.tip}
           an={chosenEl.an}
+          img={chosenEl.img}
         />
-      )}
-      <nav
-        className={`pagination ${
-          ctx.curentElement === 1 ? style.nextBtn : "is-centered"
-        } mt-6 mx-3`}
-        role="navigation"
-        aria-label="pagination"
-      >
-        {ctx.curentElement > 1 && (
-          <a
-            className="pagination-previous"
-            onClick={() => ctx.setCurentElement(ctx.curentElement - 1)}
-          >
-            Previous
-          </a>
-        )}
-        {ctx.curentElement < ctx.length && (
-          <a
-            className="pagination-next"
-            onClick={() => ctx.setCurentElement(ctx.curentElement + 1)}
-          >
-            Next
-          </a>
-        )}
-      </nav>
+      ))}
     </div>
   );
 };

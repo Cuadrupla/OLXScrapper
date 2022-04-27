@@ -19,17 +19,19 @@ const ContextProvider = (props) => {
   const [length, setLength] = useState(0);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
+
+
     const getData = () => {
-      fetch("http://localhost:3000/announcements")
-        .then((res) => res.json())
-        .then((data) => {
-          setData(data.data);
-        })
-        .catch((res) => {
-          console.log(res);
-        });
+        fetch("http://localhost:3000/announcements")
+            .then((res) => res.json())
+            .then((data) => {
+                setData(data.data);
+            })
+            .catch((res) => {
+                console.log(res);
+            });
     };
+  useEffect(() => {
     getData();
   }, []);
 
@@ -57,9 +59,73 @@ const ContextProvider = (props) => {
   };
 
   const clearFilter = (filtru) => {
-    setFilter({ ...filter, [filtru]: null });
-    console.log("DAAAAA");
+      const aux = filter;
+      delete aux[filtru];
+      setFilter(aux);
+      let dataFiltered;
+    const getNewData = () => {
+        fetch("http://localhost:3000/announcements")
+            .then((res) => res.json())
+            .then((data) => {
+                dataFiltered = data.data;
+            })
+            .catch((res) => {
+                console.log(res);
+            });
+    };
+    getNewData();
+    setTimeout(() => {
+        console.log(dataFiltered);
+        setData(verifyFilter(dataFiltered));
+    }, [1000])
   };
+
+  const verifyFilter = (data) => {
+      let filteredData = data;
+      for(const filterKey in filter) {
+          if(filterKey == "An productie") {
+              let [an1, an2] = filter[filterKey].split("-");
+              an1 = parseInt(an1);
+              an2 = parseInt(an2) ? parseInt(an2) : 3000;
+              filteredData = filteredData.filter(el => el.an >= an1 && el.an <= an2);
+          }
+          if(filterKey == "Pret") {
+              let [pret1, pret2] = filter[filterKey].split("-+");
+              pret1 = parseInt(pret1);
+              pret2 = parseInt(pret2) ? parseInt(pret2) : 99999999;
+              filteredData = filteredData.filter(el => el.pret.split(" ")[0] >= pret1 && el.pret.split(" ")[0] <= pret2);
+          }
+          if(filterKey == "Data postarii") {
+              let [timp1, timp2] = filter[filterKey].split("-");
+              filteredData = filteredData.filter(el => el.data_postare.split(" ")[2] >= timp1 && el.data_postare.split(" ")[2] <= timp2);
+          }
+          if(filterKey == "Marca"){
+              filteredData = filteredData.filter(el => filter[filterKey] == el.marca);
+          }
+          if(filterKey == "Negociabil") {
+              filteredData = filteredData.filter(el => {
+                  const isNeg = filter[filterKey] == "da" ? true : false;
+                  return el.negociable == isNeg;
+              })
+          }
+          if(filterKey == "Tipul produsului") {
+              filteredData = filteredData.filter(el => el.tipProdus == filter[filterKey]);
+          }
+          if(filterKey == "Stare") {
+              filteredData = filteredData.filter(el => el.stare == filter[filterKey]);
+          }
+          if(filterKey == "Culoare") {
+              filteredData = filteredData.filter(el => el.culoare == filter[filterKey]);
+          }
+          if(filterKey == "Tipul carburantului") {
+              filteredData = filteredData.filter(el => el.tipCarburant == filter[filterKey]);
+          }
+          if(filterKey == "Locatie") {
+              filteredData = filteredData.filter(el => el.locatie == filter[filterKey]);
+          }
+      }
+      return filteredData;
+  }
 
   return (
     <Context.Provider
@@ -68,6 +134,7 @@ const ContextProvider = (props) => {
         handleChange,
         clearInput,
         clearFilter,
+          verifyFilter,
         filter,
         setFilter,
         curentElement,

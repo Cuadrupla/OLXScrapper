@@ -5,8 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b33a8761-88d5-41b6-8140-e2f0c360738c" name="Changes" comment="Working search bar">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/anunturi/DateAnunturi.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/anunturi/DateAnunturi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/anunturi/Anunt.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/anunturi/Anunt.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/anunturi/Anunturi.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/anunturi/Anunturi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/filtre/Filtre.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/filtre/Filtre.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/filtre/mockedData.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/filtre/mockedData.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/context/context.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/context.js" afterDir="false" />
+    </list>
+    <list id="1b57c497-2b6f-4ca1-a722-85d8c89044f2" name="Changes by sergiu" comment="">
+      <change beforePath="$PROJECT_DIR$/src/components/anunturi/Anunturi.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/anunturi/Anunturi.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/header/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/context/context.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/context.js" afterDir="false" />
     </list>
@@ -22,6 +30,28 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/components/anunturi/Anunturi.js">
+      <ranges>
+        <range start1="1" end1="2" start2="1" end2="2" changelist="1b57c497-2b6f-4ca1-a722-85d8c89044f2" />
+        <range start1="6" end1="6" start2="6" end2="10" changelist="1b57c497-2b6f-4ca1-a722-85d8c89044f2" />
+        <range start1="8" end1="9" start2="12" end2="13" changelist="b33a8761-88d5-41b6-8140-e2f0c360738c" />
+        <range start1="11" end1="12" start2="15" end2="16" changelist="b33a8761-88d5-41b6-8140-e2f0c360738c" />
+        <range start1="13" end1="14" start2="17" end2="18" changelist="b33a8761-88d5-41b6-8140-e2f0c360738c" />
+        <range start1="24" end1="24" start2="28" end2="29" changelist="b33a8761-88d5-41b6-8140-e2f0c360738c" />
+        <range start1="25" end1="50" start2="30" end2="31" changelist="b33a8761-88d5-41b6-8140-e2f0c360738c" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/src/context/context.js">
+      <ranges>
+        <range start1="21" end1="21" start2="21" end2="33" changelist="1b57c497-2b6f-4ca1-a722-85d8c89044f2" />
+        <range start1="22" end1="32" start2="34" end2="34" changelist="1b57c497-2b6f-4ca1-a722-85d8c89044f2" />
+        <range start1="59" end1="61" start2="61" end2="80" changelist="1b57c497-2b6f-4ca1-a722-85d8c89044f2" />
+        <range start1="62" end1="62" start2="81" end2="128" changelist="1b57c497-2b6f-4ca1-a722-85d8c89044f2" />
+        <range start1="70" end1="70" start2="136" end2="137" changelist="b33a8761-88d5-41b6-8140-e2f0c360738c" />
+      </ranges>
+    </file>
+  </component>
   <component name="ProjectId" id="27i21BidTRd5Dy9J9CzAbyerryO" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -31,6 +61,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="codeWithMe.voiceChat.enabledByDefault" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -52,7 +83,7 @@
       <workItem from="1649790888052" duration="187000" />
       <workItem from="1649962837542" duration="281000" />
       <workItem from="1649963136506" duration="3236000" />
-      <workItem from="1651071738174" duration="686000" />
+      <workItem from="1651071738174" duration="8444000" />
     </task>
     <task id="LOCAL-00001" summary="Rebased anunturi">
       <created>1649789008965</created>
