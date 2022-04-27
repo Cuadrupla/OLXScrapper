@@ -1,0 +1,225 @@
+Index: src/context/context.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import { useState } from \"preact/hooks\";\r\nimport { createContext } from \"preact\";\r\nimport { mockData } from \"../components/anunturi/DateAnunturi\";\r\n\r\nconst initialValues = {\r\n  isSearch: false,\r\n  search: \"\",\r\n  data: [],\r\n  filter: {},\r\n  curentElement: 1,\r\n  pages: 50,\r\n};\r\nexport const Context = createContext(initialValues);\r\n\r\nconst ContextProvider = (props) => {\r\n  //States\r\n  const [search, setSearch] = useState(\"\");\r\n  const [filter, setFilter] = useState({});\r\n  const [curentElement, setCurentElement] = useState(1);\r\n  const [length, setLength] = useState(0);\r\n  const [data, setData] = useState(mockData);\r\n  const [isLoading, setIsLoading] = useState(false);\r\n\r\n  const debounce = (func, timeout = 1500) => {\r\n    let timer;\r\n\r\n    return (...args) => {\r\n      clearTimeout(timer);\r\n      timer = setTimeout(() => {\r\n        func.apply(this, args);\r\n          console.log(\"finished loading\");\r\n          setIsLoading(false);\r\n      }, timeout);\r\n\r\n    };\r\n  };\r\n\r\n  const handleChange = debounce((e) => {\r\n\r\n      setIsLoading(true);\r\n      console.log(\"loading...\");\r\n    setSearch(e.target.value);\r\n  });\r\n\r\n  const clearInput = () => {\r\n    setSearch(\"\");\r\n  };\r\n\r\n  const clearFilter = (filtru) => {\r\n    setFilter({ ...filter, [filtru]: null });\r\n    console.log(\"DAAAAA\");\r\n  };\r\n\r\n  return (\r\n    <Context.Provider\r\n      value={{\r\n        search,\r\n        handleChange,\r\n        clearInput,\r\n        clearFilter,\r\n        filter,\r\n        setFilter,\r\n        curentElement,\r\n        setCurentElement,\r\n        length,\r\n        setLength,\r\n        data,\r\n        setData,\r\n        isLoading,\r\n      }}\r\n    >\r\n      {props.children}\r\n    </Context.Provider>\r\n  );\r\n};\r\n\r\nexport default ContextProvider;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/context/context.js b/src/context/context.js
+--- a/src/context/context.js	(revision 1623c1b0d253c5a425583abc39f829052f499677)
++++ b/src/context/context.js	(date 1651060889291)
+@@ -1,6 +1,6 @@
+ import { useState } from "preact/hooks";
+ import { createContext } from "preact";
+-import { mockData } from "../components/anunturi/DateAnunturi";
++import mockData from "../components/anunturi/DateAnunturi";
+ 
+ const initialValues = {
+   isSearch: false,
+@@ -28,17 +28,15 @@
+       clearTimeout(timer);
+       timer = setTimeout(() => {
+         func.apply(this, args);
+-          console.log("finished loading");
+-          setIsLoading(false);
++        console.log("finished loading");
++        setIsLoading(false);
+       }, timeout);
+-
+     };
+   };
+ 
+   const handleChange = debounce((e) => {
+-
+-      setIsLoading(true);
+-      console.log("loading...");
++    setIsLoading(true);
++    console.log("loading...");
+     setSearch(e.target.value);
+   });
+ 
+Index: src/components/header/index.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import style from \"./style.css\";\r\nimport { useContext, useEffect } from \"preact/hooks\";\r\nimport { Context } from \"../../context/context\";\r\nimport React from \"react\";\r\nimport { mockData } from \"../anunturi/DateAnunturi\";\r\nimport {mockedData} from \"../filtre/mockedData\";\r\n\r\nconst Header = () => {\r\n  const ctx = useContext(Context);\r\n  useEffect(() => {\r\n    let index =0;\r\n\r\n    if (ctx.search != \"\") {\r\n      const newArr = ctx.data.filter((item) =>{\r\n            if(item.titlu.toLowerCase().includes(ctx.search.toLowerCase())){\r\n              index++;\r\n              item.id = index;\r\n              return {...item};\r\n            }\r\n      }\r\n      );\r\n      ctx.setCurentElement(1);\r\n      ctx.setData(newArr);\r\n    } else {\r\n      ctx.setCurentElement(1);\r\n      index = 0;\r\n      const newArr = mockData.map((item, index) =>{\r\n              index++;\r\n              item.id = index;\r\n              return {...item};\r\n            }\r\n      );\r\n      ctx.setData(newArr);\r\n      console.log(newArr);\r\n    }\r\n  }, [ctx.search]);\r\n  return (\r\n    <header className={`columns ${style.header}`}>\r\n      <h1\r\n        className={`column is-1 is-offset-2 has-text-right mr-0 mt-2 py-auto has-text-black-ter is-size-3 has-text-weight-semibold ${style.logo}`}\r\n      >\r\n        SVG\r\n      </h1>\r\n\r\n      <div className=\"field columns is-5 is-offset-1 mx-auto mt-4 mb-2\">\r\n        <p className=\"control has-icons-left has-icons-right\">\r\n          <input\r\n            className=\"input\"\r\n            type=\"text\"\r\n            placeholder=\"Search\"\r\n            value={ctx.search}\r\n            onChange={ctx.handleChange}\r\n          />\r\n          <span className=\"icon is-small is-left\">\r\n            <i className=\"fas fa-envelope\" />\r\n          </span>\r\n          <span\r\n            className=\"icon is-medium is-right is-clickable\"\r\n            onClick={ctx.clearInput}\r\n          >\r\n            X\r\n          </span>\r\n        </p>\r\n      </div>\r\n    </header>\r\n  );\r\n};\r\n\r\nexport default Header;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/header/index.js b/src/components/header/index.js
+--- a/src/components/header/index.js	(revision 1623c1b0d253c5a425583abc39f829052f499677)
++++ b/src/components/header/index.js	(date 1651061213828)
+@@ -2,34 +2,33 @@
+ import { useContext, useEffect } from "preact/hooks";
+ import { Context } from "../../context/context";
+ import React from "react";
+-import { mockData } from "../anunturi/DateAnunturi";
+-import {mockedData} from "../filtre/mockedData";
++import mockData from "../anunturi/DateAnunturi";
++import { mockedData } from "../filtre/mockedData";
+ 
+ const Header = () => {
++  console.log(mockData);
+   const ctx = useContext(Context);
+   useEffect(() => {
+-    let index =0;
++    let index = 0;
+ 
+     if (ctx.search != "") {
+-      const newArr = ctx.data.filter((item) =>{
+-            if(item.titlu.toLowerCase().includes(ctx.search.toLowerCase())){
+-              index++;
+-              item.id = index;
+-              return {...item};
+-            }
+-      }
+-      );
++      const newArr = ctx.data.filter((item) => {
++        if (item.titlu.toLowerCase().includes(ctx.search.toLowerCase())) {
++          index++;
++          item.id = index;
++          return { ...item };
++        }
++      });
+       ctx.setCurentElement(1);
+       ctx.setData(newArr);
+     } else {
+       ctx.setCurentElement(1);
+       index = 0;
+-      const newArr = mockData.map((item, index) =>{
+-              index++;
+-              item.id = index;
+-              return {...item};
+-            }
+-      );
++      const newArr = mockData.map((item, index) => {
++        index++;
++        item.id = index;
++        return { ...item };
++      });
+       ctx.setData(newArr);
+       console.log(newArr);
+     }
+Index: package.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n  \"private\": true,\r\n  \"name\": \"olx\",\r\n  \"version\": \"0.0.0\",\r\n  \"license\": \"MIT\",\r\n  \"scripts\": {\r\n    \"build\": \"preact build\",\r\n    \"serve\": \"sirv build --port 8080 --cors --single\",\r\n    \"dev\": \"preact watch\",\r\n    \"lint\": \"eslint src\",\r\n    \"test\": \"jest\"\r\n  },\r\n  \"eslintConfig\": {\r\n    \"extends\": \"preact\",\r\n    \"ignorePatterns\": [\r\n      \"build/\"\r\n    ]\r\n  },\r\n  \"devDependencies\": {\r\n    \"enzyme\": \"^3.10.0\",\r\n    \"enzyme-adapter-preact-pure\": \"^2.0.0\",\r\n    \"eslint\": \"^6.0.1\",\r\n    \"eslint-config-preact\": \"^1.1.0\",\r\n    \"jest\": \"^24.9.0\",\r\n    \"jest-preset-preact\": \"^1.0.0\",\r\n    \"preact-cli\": \"^3.0.0\",\r\n    \"sirv-cli\": \"1.0.3\"\r\n  },\r\n  \"dependencies\": {\r\n    \"preact\": \"^10.3.2\",\r\n    \"preact-render-to-string\": \"^5.1.4\",\r\n    \"preact-router\": \"^3.2.1\"\r\n  },\r\n  \"jest\": {\r\n    \"preset\": \"jest-preset-preact\",\r\n    \"setupFiles\": [\r\n      \"<rootDir>/tests/__mocks__/browserMocks.js\",\r\n      \"<rootDir>/tests/__mocks__/setupTests.js\"\r\n    ]\r\n  }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/package.json b/package.json
+--- a/package.json	(revision 1623c1b0d253c5a425583abc39f829052f499677)
++++ b/package.json	(date 1651069890825)
+@@ -27,6 +27,7 @@
+     "sirv-cli": "1.0.3"
+   },
+   "dependencies": {
++    "axios": "^0.27.2",
+     "preact": "^10.3.2",
+     "preact-render-to-string": "^5.1.4",
+     "preact-router": "^3.2.1"
+@@ -38,4 +39,4 @@
+       "<rootDir>/tests/__mocks__/setupTests.js"
+     ]
+   }
+-}
+\ No newline at end of file
++}
+Index: src/components/anunturi/DateAnunturi.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>export const mockData = [\r\n    {\r\n        id: 1,\r\n        titlu: \"Jante 100% originale\",\r\n        descriere:\r\n            \"Jante aduse de la o bunicuta din germania smr fata mea in puscarie daca mint \",\r\n        tip: \"jante\",\r\n        marca: \"bemveu\",\r\n        negociabil: \"nu\",\r\n        locatie: \"bucuresti\",\r\n        data_postare: \"azi\",\r\n        stare: \"nou\",\r\n        pret: \"90\",\r\n        an: \"\",\r\n        culoare: \"alb\",\r\n        tipCarburant: \"\",\r\n        img: \"\"\r\n    },\r\n    {\r\n        id: 2,\r\n        titlu: \"parbriz de tanc\",\r\n        descriere: \"Lam adus din ucraina de pe un tanc\",\r\n        tip: \"parbriz\",\r\n        marca: \"dacia\",\r\n        negociabil: \"da\",\r\n        locatie: \"tecuci\",\r\n        data_postare: \"in ultima saptamana\",\r\n        stare: \"bulit rau\",\r\n        pret: \"260\",\r\n        an: \"2012\",\r\n        culoare: \"\",\r\n        tipCarburant: \"\",\r\n        img: \"\"\r\n    },\r\n    {\r\n        id: 3,\r\n        titlu: \"iconita cu sf gheorghe\",\r\n        descriere:\r\n            \"iconita adusa de pe muntele athos sfintita de insusi domnul nostru iisus hristos\",\r\n        tip: \"accesorii\",\r\n        marca: \"dacia\",\r\n        negociabil: \"da\",\r\n        locatie: \"Galati\",\r\n        data_postare: \"azi\",\r\n        stare: \"nou\",\r\n        pret: \"1000\",\r\n        an: \"2023\",\r\n        culoare: \"maro\",\r\n        tipCarburant: \"benzina\",\r\n        img: \"\"\r\n    },\r\n    {\r\n        id: 4,\r\n        titlu: \"Jante nfs\",\r\n        descriere:\r\n            \"Jante dupa care s-au inspirat astia de a facut need for speed si au pus pe gtr ca sa se dea ei smecheri\",\r\n        tip: \"jante\",\r\n        marca: \"nissan\",\r\n        negociabil: \"nu\",\r\n        locatie: \"toyko\",\r\n        data_postare: \"in ultima luna\",\r\n        stare: \"second hand\",\r\n        pret: \"9999,99\",\r\n        an: \"2000\",\r\n        culoare: \"negru\",\r\n        tipCarburant: \"motorina\",\r\n        img: \"\"\r\n    },\r\n];\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/anunturi/DateAnunturi.js b/src/components/anunturi/DateAnunturi.js
+--- a/src/components/anunturi/DateAnunturi.js	(revision 1623c1b0d253c5a425583abc39f829052f499677)
++++ b/src/components/anunturi/DateAnunturi.js	(date 1651070249168)
+@@ -1,69 +1,19 @@
+-export const mockData = [
+-    {
+-        id: 1,
+-        titlu: "Jante 100% originale",
+-        descriere:
+-            "Jante aduse de la o bunicuta din germania smr fata mea in puscarie daca mint ",
+-        tip: "jante",
+-        marca: "bemveu",
+-        negociabil: "nu",
+-        locatie: "bucuresti",
+-        data_postare: "azi",
+-        stare: "nou",
+-        pret: "90",
+-        an: "",
+-        culoare: "alb",
+-        tipCarburant: "",
+-        img: ""
+-    },
+-    {
+-        id: 2,
+-        titlu: "parbriz de tanc",
+-        descriere: "Lam adus din ucraina de pe un tanc",
+-        tip: "parbriz",
+-        marca: "dacia",
+-        negociabil: "da",
+-        locatie: "tecuci",
+-        data_postare: "in ultima saptamana",
+-        stare: "bulit rau",
+-        pret: "260",
+-        an: "2012",
+-        culoare: "",
+-        tipCarburant: "",
+-        img: ""
+-    },
+-    {
+-        id: 3,
+-        titlu: "iconita cu sf gheorghe",
+-        descriere:
+-            "iconita adusa de pe muntele athos sfintita de insusi domnul nostru iisus hristos",
+-        tip: "accesorii",
+-        marca: "dacia",
+-        negociabil: "da",
+-        locatie: "Galati",
+-        data_postare: "azi",
+-        stare: "nou",
+-        pret: "1000",
+-        an: "2023",
+-        culoare: "maro",
+-        tipCarburant: "benzina",
+-        img: ""
+-    },
+-    {
+-        id: 4,
+-        titlu: "Jante nfs",
+-        descriere:
+-            "Jante dupa care s-au inspirat astia de a facut need for speed si au pus pe gtr ca sa se dea ei smecheri",
+-        tip: "jante",
+-        marca: "nissan",
+-        negociabil: "nu",
+-        locatie: "toyko",
+-        data_postare: "in ultima luna",
+-        stare: "second hand",
+-        pret: "9999,99",
+-        an: "2000",
+-        culoare: "negru",
+-        tipCarburant: "motorina",
+-        img: ""
+-    },
+-];
++import { useEffect } from "preact/hooks";
++import React from "react";
++import axios from "axios";
++
++let mockData = [];
++export const DateAnunturi = () => {
++  useEffect(async () => {
++    axios.get("http://localhost:3000/announcements").then((res) => {
++      console.log(res.data);
++    });
++
++    // const data = await res.json();
++    // mockData = data.data;
++    // console.log(mockData);
++  }, []);
++  return <div>DateAnunturi</div>;
++};
++
++export default mockData;

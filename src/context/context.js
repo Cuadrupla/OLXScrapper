@@ -1,6 +1,5 @@
-import { useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 import { createContext } from "preact";
-import { mockData } from "../components/anunturi/DateAnunturi";
 
 const initialValues = {
   isSearch: false,
@@ -18,8 +17,21 @@ const ContextProvider = (props) => {
   const [filter, setFilter] = useState({});
   const [curentElement, setCurentElement] = useState(1);
   const [length, setLength] = useState(0);
-  const [data, setData] = useState(mockData);
+  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    const getData = () => {
+      fetch("http://localhost:3000/announcements")
+        .then((res) => res.json())
+        .then((data) => {
+          setData(data.data);
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+    };
+    getData();
+  }, []);
 
   const debounce = (func, timeout = 1500) => {
     let timer;
@@ -28,17 +40,15 @@ const ContextProvider = (props) => {
       clearTimeout(timer);
       timer = setTimeout(() => {
         func.apply(this, args);
-          console.log("finished loading");
-          setIsLoading(false);
+        console.log("finished loading");
+        setIsLoading(false);
       }, timeout);
-
     };
   };
 
   const handleChange = debounce((e) => {
-
-      setIsLoading(true);
-      console.log("loading...");
+    setIsLoading(true);
+    console.log("loading...");
     setSearch(e.target.value);
   });
 

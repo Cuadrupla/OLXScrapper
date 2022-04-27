@@ -2,34 +2,31 @@ import style from "./style.css";
 import { useContext, useEffect } from "preact/hooks";
 import { Context } from "../../context/context";
 import React from "react";
-import { mockData } from "../anunturi/DateAnunturi";
-import {mockedData} from "../filtre/mockedData";
 
 const Header = () => {
   const ctx = useContext(Context);
+  console.log(ctx.data);
   useEffect(() => {
-    let index =0;
+    let index = 0;
 
     if (ctx.search != "") {
-      const newArr = ctx.data.filter((item) =>{
-            if(item.titlu.toLowerCase().includes(ctx.search.toLowerCase())){
-              index++;
-              item.id = index;
-              return {...item};
-            }
-      }
-      );
+      const newArr = ctx.data.filter((item) => {
+        if (item.titlu.toLowerCase().includes(ctx.search.toLowerCase())) {
+          index++;
+          item.id = index;
+          return { ...item };
+        }
+      });
       ctx.setCurentElement(1);
       ctx.setData(newArr);
     } else {
       ctx.setCurentElement(1);
       index = 0;
-      const newArr = mockData.map((item, index) =>{
-              index++;
-              item.id = index;
-              return {...item};
-            }
-      );
+      const newArr = ctx.data.map((item, index) => {
+        index++;
+        item.id = index;
+        return { ...item };
+      });
       ctx.setData(newArr);
       console.log(newArr);
     }
