@@ -90,10 +90,17 @@ const ContextProvider = (props) => {
               filteredData = filteredData.filter(el => el.an >= an1 && el.an <= an2);
           }
           if(filterKey == "Pret") {
-              let [pret1, pret2] = filter[filterKey].split("-+");
+              let [pret1, pret2] = filter[filterKey].split("-");
+              pret1 = pret1.split(" ")[0] + pret1.split(" ")[1];
               pret1 = parseInt(pret1);
-              pret2 = parseInt(pret2) ? parseInt(pret2) : 99999999;
-              filteredData = filteredData.filter(el => el.pret.split(" ")[0] >= pret1 && el.pret.split(" ")[0] <= pret2);
+              if(pret2)
+                pret2 = parseInt(pret2);
+              else
+                pret2 = 999999;
+              if(pret2 != 999999)
+                filteredData = filteredData.filter(el => el.pret.split(" ")[0] >= pret1 && el.pret.split(" ")[0] <= pret2);
+              else
+              filteredData = filteredData.filter(el => el.pret.split(" ")[0]+el.pret.split(" ")[1] >= pret1 && el.pret.split(" ")[0] <= pret2);
           }
           if(filterKey == "Data postarii") {
               let [timp1, timp2] = filter[filterKey].split("-");
