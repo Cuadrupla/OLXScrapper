@@ -80,6 +80,19 @@ const ContextProvider = (props) => {
     }, [1000])
   };
 
+  const trailPrice = (strPrice) => {
+    const arr = strPrice.split(" ");
+
+    if (arr.length > 2) {
+        let str = "";
+        for (let i = 0; i < arr.length - 1; i++) {
+            str += arr[i];
+        }
+        return parseInt(str);
+    }
+
+    return parseInt(arr[0]);
+}
   const verifyFilter = (data) => {
       let filteredData = data;
       for(const filterKey in filter) {
@@ -91,16 +104,21 @@ const ContextProvider = (props) => {
           }
           if(filterKey == "Pret") {
               let [pret1, pret2] = filter[filterKey].split("-");
-              pret1 = pret1.split(" ")[0] + pret1.split(" ")[1];
+              let aux1 = pret1.split(" ")[0];
+              let aux2 = pret1.split(" ")[1];
+              if(!aux2)
+                pret1 = aux1;
+              else
+                pret1 = aux1 + aux2;
               pret1 = parseInt(pret1);
               if(pret2)
                 pret2 = parseInt(pret2);
               else
                 pret2 = 999999;
-              if(pret2 != 999999)
-                filteredData = filteredData.filter(el => el.pret.split(" ")[0] >= pret1 && el.pret.split(" ")[0] <= pret2);
-              else
-              filteredData = filteredData.filter(el => el.pret.split(" ")[0]+el.pret.split(" ")[1] >= pret1 && el.pret.split(" ")[0] <= pret2);
+              filteredData = filteredData.filter(el => {const pret = trailPrice(el.pret)
+                return pret1 <= pret && pret2 >= pret;
+              });
+              
           }
           if(filterKey == "Data postarii") {
               let [timp1, timp2] = filter[filterKey].split("-");
