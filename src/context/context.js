@@ -77,7 +77,7 @@ const ContextProvider = (props) => {
     setTimeout(() => {
         console.log(dataFiltered);
         setData(verifyFilter(dataFiltered));
-    }, [1000])
+    }, [2000])
   };
 
   const trailPrice = (strPrice) => {
